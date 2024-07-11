@@ -38,6 +38,7 @@ const deleteCategoria = async (idCategoria) => {
     if (!categoriaABorrar) return { error: "No existe esa categoria" };
 
     await categoriaABorrar.destroy();
+    return { message: "Categoria eliminada" };
 }
 
 // obtener todas las categorias, esto es de prueba, no se implementa realmente en el proyecto

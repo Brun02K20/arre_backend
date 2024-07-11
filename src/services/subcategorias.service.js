@@ -45,7 +45,7 @@ const deleteSubCategoria = async (idSubCategoria) => {
     if (!subCategoriaABorrar) return {error: "No existe esa subcategoria"}
 
     await subCategoriaABorrar.destroy();
-
+    return { message: "Subcategoria eliminada" };
 }
 
 // obtener todas las subcategorias

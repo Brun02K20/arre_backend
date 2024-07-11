@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import { tokenExtractorMiddleware } from "../middlewares/token-extractor-middleware.js";
 import { subcategorias_services } from "../services/subcategorias.service.js";
 const router = express.Router();
@@ -36,8 +36,8 @@ router.put("/:id", tokenExtractorMiddleware, async (req, res, next) => {
 // solamente el o los administrador/es del sistema (logueados) van a poder eliminar una subcategoria si es necesario. CORREGIR
 router.delete("/:id", tokenExtractorMiddleware, async (req, res, next) => {
     try {
-        await subcategorias_services.deleteSubCategoria(req.params.id);
-        return res.json({message: "Subcategoria eliminada con éxito"});
+        const response = await subcategorias_services.deleteSubCategoria(req.params.id);
+        return res.json(response);
     } catch (error) {
         console.log(error)
         next(error)

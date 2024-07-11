@@ -37,7 +37,7 @@ router.put("/:id", tokenExtractorMiddleware, async (req, res, next) => {
 router.delete("/:id", tokenExtractorMiddleware, async (req, res, next) => {
     try {
         const response = await categorias_services.deleteCategoria(req.params.id);
-        return res.json({message: "Categoria eliminada con éxito"});
+        return res.json(response);
     } catch (error) {
         next(error)
     }
