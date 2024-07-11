@@ -7,9 +7,11 @@ const tokenExtractorMiddleware = async (req, res, next) => {
         token = authorization.substring(7);
     }
 
+    console.log("TOKEN EN EL MIDDLEWARE DE EXTRACCION: ", token);
+
     let decodedToken = {};
     try {
-        decodedToken = jwt.verify(token, process.env.SECRET); // valido la firma
+        decodedToken = jwt.verify(token, "poronga"); // valido la firma
         console.log("TOKEN DECODIFICADO: ", decodedToken);
         req.decodedToken = decodedToken; // Guardamos el token decodificado en el objeto de solicitud para que esté disponible en los controladores posteriores.
         req.token = token

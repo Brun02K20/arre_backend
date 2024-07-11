@@ -23,7 +23,10 @@ sequelize.define("Productos", ProductosModel.productosAttributes, ProductosModel
 
 // definicion de las FKs en el codigo
 sequelize.models.SubCategorias.belongsTo(sequelize.models.Categorias, {foreignKey: "idCategoria"})
+sequelize.models.Categorias.hasMany(sequelize.models.SubCategorias, {foreignKey: "idCategoria"})
+
 sequelize.models.Productos.belongsTo(sequelize.models.SubCategorias, {foreignKey: "idSubCategoria"})
+sequelize.models.SubCategorias.hasMany(sequelize.models.Productos, {foreignKey: "idSubCategoria"})
 
 // Exportando la conexión a la base de datos
 export { sequelize }

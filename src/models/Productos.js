@@ -21,6 +21,10 @@ const productosAttributes = {
     foto: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    descripcion: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }
 
