@@ -161,7 +161,7 @@ router.post("/carrusel", tokenExtractorMiddleware, upload.single('file'),async (
 
 
 // solamente el o los administrador/es del sistema (logueados) van a poder borrar una foto del carrusel si es necesario. ANDA
-router.delete("/carrusel", tokenExtractorMiddleware, async (req, res, next) => {
+router.delete("/carrusel/img", tokenExtractorMiddleware, async (req, res, next) => {
     try {
         const { src } = req.body;
         // Obtener la referencia al archivo en el storage de Firebase
