@@ -1,3 +1,4 @@
+import { or } from "sequelize";
 import { sequelize } from "../databases/databases.js";
 
 // Crear un producto
@@ -10,7 +11,8 @@ const createProducto = async (body) => {
             precio: body.precio,
             foto: body.foto,
             idSubCategoria: body.idSubCategoria,
-            descripcion: body.descripcion
+            descripcion: body.descripcion,
+            esOculto: 0
         })
 
         return createdProducto.dataValues
@@ -62,7 +64,35 @@ const getCarta = async () => {
             required: false,
             include: {
                 model: sequelize.models.Productos,
-                required: false
+                required: false,
+                where: {
+                    esOculto: 0
+                }
+            }
+        },
+    });
+
+    return categorias.map(categoria => {
+        const subcategorias = categoria.SubCategorias.map(subcategoria => subcategoria.dataValues);
+        return {
+            id: categoria.id,
+            nombre: categoria.nombre,
+            subcategorias: subcategorias
+        };
+    });
+}
+
+// obtener la carta completa para que los clientes del restaurante puedan verla
+const getCartaAdmin = async () => {
+
+    const categorias = await sequelize.models.Categorias.findAll({
+        attributes: ["nombre", "id"],
+        include: {
+            model: sequelize.models.SubCategorias,
+            required: false,
+            include: {
+                model: sequelize.models.Productos,
+                required: false,
             }
         }
     });
@@ -77,5 +107,16 @@ const getCarta = async () => {
     });
 }
 
-const productos_services = { createProducto, editProducto, deleteProducto, getAll, getCarta }
+const muestraProducto = async (idProducto, body) => {
+    const producto = await sequelize.models.Productos.findByPk(idProducto)
+    if (!producto) {
+        return {error: "No existe ese producto"}
+    }
+
+    producto.esOculto = body.esOculto
+    await producto.save()
+    return producto.dataValues
+}
+
+const productos_services = { createProducto, editProducto, deleteProducto, getAll, getCarta, muestraProducto, getCartaAdmin }
 export { productos_services }

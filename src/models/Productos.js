@@ -25,6 +25,10 @@ const productosAttributes = {
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    esOculto: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }
 

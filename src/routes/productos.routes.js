@@ -40,6 +40,27 @@ router.get("/carta", async (req, res, next) => {
     }
 })
 
+// obtencion de carta para el administrador, a fin de que pueda ocultar o mostrar productos
+router.get("/carta/admin", tokenExtractorMiddleware, async (req, res, next) => {
+    try {
+        const response = await productos_services.getCartaAdmin();
+        return res.json(response);
+    } catch (error) {
+        next(error)
+    }
+})
+
+// solo el admin va a poder ocultar o mostrar un producto
+// body = {esOculto: 0}
+router.put("/muestra/:id", tokenExtractorMiddleware, async (req, res, next) => {
+    try {
+        const response = await productos_services.muestraProducto(req.params.id, req.body);
+        return res.json(response);
+    } catch (error) {
+        next(error)
+    }
+})
+
 // solamente el o los administrador/es del sistema (logueados) van a poder crear un nuevo producto si es necesario. ANDA
 router.post("/", tokenExtractorMiddleware, upload.single('file'), async (req, res, next) => {
     try {
