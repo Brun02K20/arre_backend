@@ -35,7 +35,7 @@ const editProducto = async (idProducto, body) => {
 
     productoAActualizar.nombre = body.nombre;
     productoAActualizar.precio = body.precio;
-    productoAActualizar.foto = body.foto;
+    productoAActualizar.foto = body.foto ? body.foto : productoAActualizar.foto;
     productoAActualizar.descripcion = body.descripcion;
     await productoAActualizar.save();
 }

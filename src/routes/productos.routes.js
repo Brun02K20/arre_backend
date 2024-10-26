@@ -103,7 +103,6 @@ router.post("/", tokenExtractorMiddleware, upload.single('file'), async (req, re
 // solamente el o los administrador/es del sistema (logueados) van a poder actualizar un producto si es necesario. ANDA
 router.put("/:id", tokenExtractorMiddleware, upload.single('file'), async (req, res, next) => {
     try {
-        console.log("archivo en actualización de producto: ", req.file)
         // la foto es opcional, si se envía una nueva foto se borra la anterior
         if (req.file) {
             const fileBuffer = req.file.buffer;
@@ -135,7 +134,7 @@ router.put("/:id", tokenExtractorMiddleware, upload.single('file'), async (req, 
             descripcion
         };
 
-        req.body = {...producto, foto: req.body.foto};
+        req.body = {...producto, foto: req.body?.foto || null};
 
         console.log("cuerpo del producto en la actualización: ", req.body)
 
