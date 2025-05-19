@@ -9,7 +9,7 @@ const createProducto = async (body) => {
         const createdProducto = await sequelize.models.Productos.create({
             nombre: body.nombre,
             precio: body.precio,
-            foto: body.foto,
+            foto: body.foto ? body.foto : null,
             idSubCategoria: body.idSubCategoria,
             descripcion: body.descripcion,
             esOculto: 0
@@ -107,6 +107,7 @@ const getCartaAdmin = async () => {
     });
 }
 
+// mostrar u ocultar un producto
 const muestraProducto = async (idProducto, body) => {
     const producto = await sequelize.models.Productos.findByPk(idProducto)
     if (!producto) {
@@ -118,5 +119,14 @@ const muestraProducto = async (idProducto, body) => {
     return producto.dataValues
 }
 
-const productos_services = { createProducto, editProducto, deleteProducto, getAll, getCarta, muestraProducto, getCartaAdmin }
+const getProductoById = async (idProducto) => {
+    const producto = await sequelize.models.Productos.findByPk(idProducto)
+    if (!producto) {
+        return {error: "No existe ese producto"}
+    }
+
+    return producto.dataValues
+}
+
+const productos_services = { createProducto, editProducto, deleteProducto, getAll, getCarta, muestraProducto, getCartaAdmin, getProductoById }
 export { productos_services }

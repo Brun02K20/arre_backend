@@ -4,15 +4,16 @@ import { UsuariosModel } from "../models/Usuarios.js";
 import { CategoriasModel } from "../models/Categorias.js";
 import { SubCategoriasModel } from "../models/SubCategorias.js";
 import { ProductosModel } from "../models/Productos.js";
+// ArreFotos23.
 
 // Creando la cadena de conexión a la base de datos
 const sequelize = new Sequelize({
     dialect: "mysql",
     dialectModule: mysql2, // necesario para produccion
-    host: "bpdlzxsg1tskmexszqon-mysql.services.clever-cloud.com",
+    host: "bxw5cy1oin0th43tjnnr-mysql.services.clever-cloud.com",
     username: "udgktidgcy9fkqli",
     password: "wrvr6qYquGfNfvDNVn1q",
-    database: "bpdlzxsg1tskmexszqon"
+    database: "bxw5cy1oin0th43tjnnr"
 });
 
 // definicion de los modelos de datos en el codigo
